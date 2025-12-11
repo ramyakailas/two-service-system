@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1
+  labels:
+    app: service1
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.service1.replicas }}
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      labels:
+        app: service1
+    spec:
+      containers:
+        - name: service1
+          image: "{{ .Values.service1.image.repository }}:{{ .Values.service1.image.tag }}"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SERVICE2_URL
+              value: "http://service2.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service2.service.port }}"
+          resources:
+            {{- toYaml .Values.service1.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+

@@ -1,0 +1,50 @@
+# Service 1 (API Gateway)
+service1:
+  replicas: 1
+  image:
+    repository: ""  # Set via --set or values file
+    tag: latest
+  resources:
+    requests:
+      cpu: 256m
+      memory: 512Mi
+    limits:
+      cpu: 512m
+      memory: 1024Mi
+  service:
+    port: 8000
+
+# Service 2 (Database Service)
+service2:
+  replicas: 1
+  image:
+    repository: ""  # Set via --set or values file
+    tag: latest
+  resources:
+    requests:
+      cpu: 256m
+      memory: 512Mi
+    limits:
+      cpu: 512m
+      memory: 1024Mi
+  service:
+    port: 8001
+
+# Database credentials (set via --set or secrets)
+database:
+  host: ""
+  port: "5432"
+  name: "mydb"
+  user: "postgres"
+  password: ""
+
+# Ingress
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /
+

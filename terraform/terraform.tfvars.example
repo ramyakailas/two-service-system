@@ -1,0 +1,46 @@
+# AWS Configuration
+aws_region  = "us-west-2"
+environment = "dev"
+
+# Project Configuration
+project_name = "two-service-system"
+
+# VPC Configuration
+vpc_cidr = "10.0.0.0/16"
+
+# RDS Configuration
+rds_engine_version        = "15.4"
+rds_instance_class        = "db.t3.micro"
+rds_allocated_storage     = 20
+rds_backup_retention_period = 7
+db_name                   = "mydb"
+db_username               = "postgres"
+db_password               = "CHANGE_ME_SECURE_PASSWORD"  # Change this!
+
+# EKS Configuration
+eks_cluster_version   = "1.28"
+eks_node_instance_type = "t3.medium"
+eks_node_min_size     = 1
+eks_node_max_size     = 3
+eks_node_desired_size = 2
+eks_node_ssh_key      = null  # Optional: SSH key name for node access
+
+# Service Configuration
+service1_cpu          = 256
+service1_memory       = 512
+service1_desired_count = 1
+
+service2_cpu          = 256
+service2_memory       = 512
+service2_desired_count = 1
+
+# Logging
+log_retention_days = 14
+
+# Tags
+tags = {
+  Owner      = "Platform Team"
+  CostCenter = "Engineering"
+  DataClass  = "Internal"
+}
+
