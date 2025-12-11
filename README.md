@@ -173,7 +173,3 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed discussion on:
 - Networking considerations
 - Deployment automation
 - Observability
-
-## Evolution Strategies
-
-I can talk about the evolution strategies during the architecture review of this, in the call.
